@@ -316,7 +316,19 @@ MonoBehaviour:
     m_ActionId: 81322739-fffc-4834-adb0-2468bb5a8985
     m_ActionName: 'Movement/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 169086211}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d1955f4b-5b74-4f94-9005-c792ccf02b35
     m_ActionName: 'Movement/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
