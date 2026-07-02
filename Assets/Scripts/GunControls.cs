@@ -1,16 +1,21 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GunControls : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private float damage = 10f, range = 100f;
+    public Camera cam;
 
-    // Update is called once per frame
-    void Update()
+    public void Shoot(InputAction.CallbackContext input)
     {
-        
+        if (input.canceled)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+            {
+                EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
+                if (target != null) target.TakeDamage(damage);
+            }
+        }
     }
 }
