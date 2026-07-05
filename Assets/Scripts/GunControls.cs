@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class GunControls : MonoBehaviour
 {
     private float damage = 10f, range = 100f;
     public Camera cam;
     public ParticleSystem muzzleFlash;
-    public float debug = 0f;
 
+    void Update()
+    {
+    }
     public void Shoot(InputAction.CallbackContext input)
     {
-        //while (!input.canceled) muzzleFlash.Play(); Debug.Log(debug++);
+        muzzleFlash.Play();
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
         {
