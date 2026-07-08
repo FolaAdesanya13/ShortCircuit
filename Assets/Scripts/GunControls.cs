@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class GunControls : MonoBehaviour
 {
@@ -8,10 +7,21 @@ public class GunControls : MonoBehaviour
     public Camera cam;
     public ParticleSystem muzzleFlash;
     private bool isShooting;
+    private Quaternion initialRotation = Quaternion.Euler(0f, 0f, 0f);
+    public GameObject impactEffect;
+    private float nextTimeToFire = 0f, fireRate = 15f;
 
+    private void Start()
+    {
+        transform.SetLocalPositionAndRotation(transform.localPosition, initialRotation);
+    }
     void Update()
     {
-        if (isShooting) ShootLogic();
+        if (isShooting && Time.time >= nextTimeToFire)
+        {
+            nextTimeToFire = Time.time + 1/fireRate;
+            ShootLogic();
+        }
     }
 
     public void Shoot(InputAction.CallbackContext input)
@@ -29,5 +39,7 @@ public class GunControls : MonoBehaviour
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
             if (target != null) target.TakeDamage(damage);
         }
+        GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(impact, 0.4f);
     }
 }
