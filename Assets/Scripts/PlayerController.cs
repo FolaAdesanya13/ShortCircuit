@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     private float speed = 5f;
     private Vector2 moveInput;
     private bool isGrounded;
-    private float jumpPower = 4f;
-    private float gravity = -9.81f;
+    private float jumpPower = 2f;
+    private float gravity = -20f;
     private float gravityConstant = -2f;
     private Vector3 playerVelocity;
 

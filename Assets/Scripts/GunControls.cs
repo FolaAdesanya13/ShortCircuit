@@ -9,11 +9,13 @@ public class GunControls : MonoBehaviour
     private bool isShooting;
     private Quaternion initialRotation = Quaternion.Euler(0f, 0f, 0f);
     public GameObject impactEffect;
-    private float nextTimeToFire = 0f, fireRate = 15f;
+    private float nextTimeToFire = 0f, fireRate = 20f;
+    private ViewRecoil recoil;
 
     private void Start()
     {
         transform.SetLocalPositionAndRotation(transform.localPosition, initialRotation);
+        recoil = transform.Find("CameraRot/CameraRecoil").GetComponent<ViewRecoil>();
     }
     void Update()
     {
@@ -33,13 +35,17 @@ public class GunControls : MonoBehaviour
     private void ShootLogic()
     {
         muzzleFlash.Play();
+        recoil.AddRecoil();
         RaycastHit hit;
+        GameObject impact = null;
+
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
         {
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
             if (target != null) target.TakeDamage(damage);
+
+            impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impact, 0.4f);
         }
-        GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(impact, 0.4f);
     }
 }
