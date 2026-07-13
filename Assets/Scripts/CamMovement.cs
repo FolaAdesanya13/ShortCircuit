@@ -23,7 +23,7 @@ public class CamMovement : MonoBehaviour
         xRotation -= scaledInput.y;
         yRotation += scaledInput.x;
 
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
     }
