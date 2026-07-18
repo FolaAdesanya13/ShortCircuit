@@ -13,6 +13,7 @@ public class ButtonAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = originalScale * hoverScaleMult;
+        Debug.Log("The cursor entered the selectable UI element.");
     }
 
     public void OnPointerExit(PointerEventData eventData)
