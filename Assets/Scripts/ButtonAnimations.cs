@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class ButtonAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Vector3 originalScale;
-    private float hoverScaleMult = 1.1f;
+    private float hoverScaleMult = 1.2f;
     void Start()
     {
         originalScale = transform.localScale;
