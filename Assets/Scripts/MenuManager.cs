@@ -6,18 +6,18 @@ using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject loadingScreen, controlsMenu, mainMenu;
+    //public GameObject loadingScreen, controlsMenu, mainMenu;
 
-    void Start()
+    /*void Start()
     {
         loadingScreen.SetActive(false);
         controlsMenu.SetActive(false);
         mainMenu.SetActive(true);
-    }
+    }*/
 
     public void PlayPressed()
     {
-        loadingScreen.SetActive(true);
+        //loadingScreen.SetActive(true);
         StartCoroutine(LoadGameScene());
 
     }
@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ControlsPressed()
+    /*public void ControlsPressed()
     {
         controlsMenu.SetActive(true);
         mainMenu.SetActive(false);
@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
     {
         controlsMenu.SetActive(false);
         mainMenu.SetActive(true);
-    }
+    }*/
 
     public void SettingsPressed()
     {
