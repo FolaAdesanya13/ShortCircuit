@@ -10,8 +10,8 @@ public class EnemySpawn : MonoBehaviour
 
     private const int maxPossibleEnemies = 40;
 
-    private Vector3 minBounds = new Vector3(-30f, 10f, -29f);
-    private Vector3 maxBounds = new Vector3(30f, 10f, 80f);
+    private Vector3 minBounds = new Vector3(-30f, -1.8f, 30f);
+    private Vector3 maxBounds = new Vector3(30f, -1.8f, 80f);
     void Start()
     {
         Spawn();
