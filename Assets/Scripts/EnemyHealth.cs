@@ -3,20 +3,21 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private float health = 50f;
+    public GameObject enemy;
+    private static float health = 50f;
 
     public void TakeDamage(float amt)
     {
         health -= amt;
         if(health <= 0)
         {
-            Debug.Log(Die());
+            Die();
         }
     }
 
-    private String Die()
+    private void Die()
     {
-        return "Dead";
+        Destroy(enemy);
     }
 
 }
