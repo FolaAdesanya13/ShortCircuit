@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController cc;
-    private float speed = 5f;
+    private float speed = 10f;
     private Vector2 moveInput;
     private bool isGrounded;
     private float jumpPower = 2f;
