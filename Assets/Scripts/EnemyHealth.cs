@@ -5,19 +5,30 @@ public class EnemyHealth : MonoBehaviour
 {
     public GameObject enemy;
     private float health = 50f;
-
+    private const float initialHealth = 50f;
+    private bool isDead = false;
     public void TakeDamage(float amt)
     {
         health -= amt;
         if(health <= 0)
         {
-            Die();
+            isDead = true;
+        }
+        else
+        {
+            isDead = false;
         }
     }
 
-    private void Die()
+    public bool IsDead()
     {
-        Destroy(enemy);
+        return isDead;
+    }
+
+    public void Respawned()
+    {
+        health = initialHealth;
+        isDead = false;
     }
 
 }

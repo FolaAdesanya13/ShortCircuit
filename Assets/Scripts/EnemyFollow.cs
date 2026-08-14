@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class EnemyFollow : MonoBehaviour
 {
     public Transform player;
+    public GameObject enemy;
     private NavMeshAgent agent;
 
     void Start()
@@ -14,7 +15,7 @@ public class EnemyFollow : MonoBehaviour
 
     void UpdatePath()
     {
-        if (player != null)
+        if (player != null && enemy.activeSelf)
         {
             agent.SetDestination(player.position);
         }
