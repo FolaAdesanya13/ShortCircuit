@@ -1451,6 +1451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf67abbd9bcc0848b20261bc809e39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
+  playButton: {fileID: 298920066}
 --- !u!4 &1415755159
 Transform:
   m_ObjectHideFlags: 0

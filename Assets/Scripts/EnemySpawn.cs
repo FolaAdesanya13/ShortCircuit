@@ -8,7 +8,7 @@ public class EnemySpawn : MonoBehaviour
     public Transform player;
     public GameObject enemy;
 
-    private const int maxPossibleEnemies = 5;
+    private const int maxPossibleEnemies = 20;
 
     private Vector3 minBounds = new Vector3(-30f, -1.8f, 30f);
     private Vector3 maxBounds = new Vector3(30f, -1.8f, 80f);

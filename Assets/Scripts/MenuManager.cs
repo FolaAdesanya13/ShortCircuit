@@ -13,13 +13,15 @@ using System.Collections;
 public class MenuManager : MonoBehaviour
 {
     //public GameObject loadingScreen, controlsMenu, mainMenu;
+    public GameObject playButton;
 
-    /*void Start()
+    void Start()
     {
-        loadingScreen.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(playButton);
+        /*loadingScreen.SetActive(false);
         controlsMenu.SetActive(false);
-        mainMenu.SetActive(true);
-    }*/
+        mainMenu.SetActive(true);*/
+    }
 
     public void PlayPressed()
     {
