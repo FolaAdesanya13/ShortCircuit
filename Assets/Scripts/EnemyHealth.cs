@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     private float health = 50f;
     private const float initialHealth = 50f;
     private bool isDead = false;
+    private int timesDied = 0;
     public void TakeDamage(float amt)
     {
         health -= amt;
@@ -29,6 +30,15 @@ public class EnemyHealth : MonoBehaviour
     {
         health = initialHealth;
         isDead = false;
+        timesDied++;
+    }
+    private void DeadFR()
+    {
+        if (timesDied >= 3) Destroy(enemy);
+    }
+    private void FixedUpdate()
+    {
+        DeadFR();
     }
 
 }
