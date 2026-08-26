@@ -16,10 +16,15 @@ public class EnemySpawn : MonoBehaviour
 
     private Vector3 minBounds = new Vector3(-30f, -1.8f, 30f);
     private Vector3 maxBounds = new Vector3(30f, -1.8f, 80f);
+
     void Start()
     {
         enemies = new List<EnemyHealth>();
         deadEnemies = new List<EnemyHealth>();
+
+        EnemyHealth og = enemy.GetComponent<EnemyHealth>();
+        if (og == null) og = enemy.AddComponent<EnemyHealth>();
+        enemies.Add(og);
 
         CreateAllEnemies();
     }
