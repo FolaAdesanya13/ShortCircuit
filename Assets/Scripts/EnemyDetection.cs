@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyFollow : MonoBehaviour
+public class EnemyDetection : MonoBehaviour
 {
-    public Transform player;
+    public Transform player, core;
     public GameObject enemy;
     private NavMeshAgent agent;
     private float playerDetectionRange = 30f, coreDetectionRange = 30f;
@@ -25,6 +25,10 @@ public class EnemyFollow : MonoBehaviour
         if (player != null && distanceFromPlayer<=playerDetectionRange)
         {
             agent.SetDestination(player.position);
+        }
+        else
+        {
+            agent.SetDestination(core.position);
         }
     }
 }
