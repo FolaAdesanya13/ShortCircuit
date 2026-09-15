@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-//ONLY FOR TESTING
+//TO-DO: MAKE SPAWNING EFFICIENT FOR WHEN THE PLAYER HAS TO TRIGGER THE SPAWN;
+/*maybe I could keep spawn logic as is but have another list called inactive 
+ * and when the game scene actually starts is when we make the enmies in them active 
+ * so that way they aren't spawning as we are supposed to fight them, 
+ * they're already spawned and awaiting for them to be activated with the player interactivity trigger*/
 public class EnemySpawn : MonoBehaviour
 {
     public Transform player;
