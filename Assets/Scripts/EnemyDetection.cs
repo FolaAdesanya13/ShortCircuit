@@ -1,34 +1,153 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyDetection : MonoBehaviour
 {
-    public Transform player, core;
-    public GameObject enemy;
+    [SerializeField] private Transform player;
+    [SerializeField] private List<Transform> cores = new List<Transform>();
+    [SerializeField] private GameObject enemy;
+
+    [SerializeField] private float playerDetectionRange = 30f;
+
     private NavMeshAgent agent;
-    private float playerDetectionRange = 30f, coreDetectionRange = 30f;
+    private Thread distanceCalculationThread;
+    private volatile bool shouldCalculate = true;
+    private readonly object lockObj = new object();
+
+    // Thread-safe position storage (updated on main thread)
+    private Vector3 cachedEnemyPosition;
+    private Vector3 cachedPlayerPosition;
+    private Dictionary<Transform, Vector3> cachedCorePositions = new Dictionary<Transform, Vector3>();
+
+    // Thread-safe distance storage
+    private float cachedDistanceFromPlayer;
+    private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        cachedEnemyPosition = transform.position;
+        cachedPlayerPosition = player != null ? player.position : Vector3.zero;
+
+        foreach (var core in cores)
+        {
+            if (core != null)
+            {
+                cachedCoreDistances[core] = float.MaxValue;
+                cachedCorePositions[core] = core.position;
+            }
+        }
+
+        // Start background thread for distance calculations
+        distanceCalculationThread = new Thread(CalculateDistancesThreaded)
+        {
+            IsBackground = true
+        };
+        distanceCalculationThread.Start();
         InvokeRepeating(nameof(UpdatePath), 0f, 0.2f);
     }
 
-    //if enemy is within a certain distance of the player then obviously follow player
-    //if not then go to nearest cpu core, meaning we are constantly calculating distance
-    //so try making that calculation on another thread so as to not affect main game
+    /// <summary>
+    /// Runs on a background thread, continuously calculating distances to player and cores.
+    /// Uses cached positions from the main thread to avoid Unity thread restrictions.
+    /// </summary>
+    void CalculateDistancesThreaded()
+    {
+        while (shouldCalculate)
+        {
+            Vector3 enemyPos;
+            Vector3 playerPos;
+            Dictionary<Transform, Vector3> corePositions;
+
+            // Safely read cached positions from main thread
+            lock (lockObj)
+            {
+                enemyPos = cachedEnemyPosition;
+                playerPos = cachedPlayerPosition;
+                corePositions = new Dictionary<Transform, Vector3>(cachedCorePositions);
+            }
+
+            if (player != null)
+            {
+                float newPlayerDistance = Vector3.Distance(enemyPos, playerPos);
+                lock (lockObj)
+                {
+                    cachedDistanceFromPlayer = newPlayerDistance;
+                }
+            }
+
+            foreach (var core in cores)
+            {
+                if (core != null && corePositions.ContainsKey(core))
+                {
+                    float newCoreDistance = Vector3.Distance(enemyPos, corePositions[core]);
+                    lock (lockObj)
+                    {
+                        cachedCoreDistances[core] = newCoreDistance;
+                    }
+                }
+            }
+            Thread.Sleep(100);
+        }
+    }
+
     void UpdatePath()
     {
+        // Cache all positions from main thread (this is safe)
+        lock (lockObj)
+        {
+            cachedEnemyPosition = transform.position;
+            cachedPlayerPosition = player != null ? player.position : Vector3.zero;
+
+            cachedCorePositions.Clear();
+            foreach (var core in cores)
+            {
+                if (core != null)
+                    cachedCorePositions[core] = core.position;
+            }
+        }
         if (!enemy.activeSelf) return;
 
-        float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
-        if (player != null && distanceFromPlayer<=playerDetectionRange)
+        float playerDistance;
+        Dictionary<Transform, float> coreDistances;
+
+        // Safely read cached distances
+        lock (lockObj)
+        {
+            playerDistance = cachedDistanceFromPlayer;
+            coreDistances = new Dictionary<Transform, float>(cachedCoreDistances);
+        }
+        if (player != null && playerDistance <= playerDetectionRange)
         {
             agent.SetDestination(player.position);
         }
         else
         {
-            agent.SetDestination(core.position);
+            Transform nearestCore = FindNearestCore(coreDistances);
+            if (nearestCore != null)
+            {
+                agent.SetDestination(nearestCore.position);
+            }
+        }
+    }
+    /// <summary>
+    /// Finds the nearest core from the cached distances.
+    /// </summary>
+    Transform FindNearestCore(Dictionary<Transform, float> coreDistances)
+    {
+        if (coreDistances.Count == 0) return null;
+        return coreDistances.OrderBy(kvp => kvp.Value).First().Key;
+    }
+
+    void OnDestroy()
+    {
+        shouldCalculate = false;
+        if (distanceCalculationThread != null && distanceCalculationThread.IsAlive)
+        {
+            distanceCalculationThread.Join(1000);
         }
     }
 }

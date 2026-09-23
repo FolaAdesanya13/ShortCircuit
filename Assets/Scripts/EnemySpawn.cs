@@ -13,6 +13,8 @@ public class EnemySpawn : MonoBehaviour
 {
     public Transform player;
     public GameObject enemy;
+    private CapsuleCollider cc;
+
     public static List<EnemyHealth> enemies;
     public static List<EnemyHealth> deadEnemies;
 
@@ -23,6 +25,7 @@ public class EnemySpawn : MonoBehaviour
 
     void Start()
     {
+        cc = GetComponent<CapsuleCollider>();
         enemies = new List<EnemyHealth>();
         deadEnemies = new List<EnemyHealth>();
 
