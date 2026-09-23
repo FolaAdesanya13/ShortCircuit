@@ -9,6 +9,10 @@ using UnityEngine.AI;
  * and when the game scene actually starts is when we make the enmies in them active 
  * so that way they aren't spawning as we are supposed to fight them, 
  * they're already spawned and awaiting for them to be activated with the player interactivity trigger*/
+
+//TO-DO: ALSO SEE WHY ENEMIES KEEP PHASING THROUGH THE CORES EVEN THOUGH THEY HAVE COLLIDERS
+//ALSO FOR THE FIRST TO DO JUST MAKE ALL ENEMIES INACTIVE AND SET VISIBLE TO FALSE
+//SLOWLY MAKE THEM ACTIVE AFTER PLAYER EVENT
 public class EnemySpawn : MonoBehaviour
 {
     public Transform player;
