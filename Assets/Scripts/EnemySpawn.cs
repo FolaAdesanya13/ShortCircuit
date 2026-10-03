@@ -36,9 +36,19 @@ public class EnemySpawn : MonoBehaviour
         EnemyHealth og = enemy.GetComponent<EnemyHealth>();
         if (og == null) og = enemy.AddComponent<EnemyHealth>();
         enemies.Add(og);
-
         CreateAllEnemies();
     }
+
+    //CreateAllEnemies would need an int param to match the message invoked
+    //so move the maxPossibleEnemies var to the initializer script
+    /*void OnEnable()
+    {
+        EnemyInitializer.PlayerPressed += CreateAllEnemies;
+    }
+    void OnDisable()
+    {
+        EnemyInitializer.PlayerPressed -= CreateAllEnemies;
+    }*/
 
     void CreateAllEnemies()
     {
