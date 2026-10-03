@@ -31,8 +31,15 @@ public class EnemyDetection : MonoBehaviour
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
 
+    /*Collider[] checkForBunching;
+    int bunchingCount;
+    const int bunchMax = 6;
+    float detectionRadius = 3.5f;*/
+
     void Start()
     {
+        /*bunchingCount = 0;
+        checkForBunching = new Collider[20];*/
         agent = GetComponent<NavMeshAgent>();
         cachedEnemyPosition = transform.position;
         cachedPlayerPosition = player != null ? player.position : Vector3.zero;
@@ -55,10 +62,6 @@ public class EnemyDetection : MonoBehaviour
         InvokeRepeating(nameof(UpdatePath), 0f, 0.2f);
     }
 
-    /// <summary>
-    /// Runs on a background thread, continuously calculating distances to player and cores.
-    /// Uses cached positions from the main thread to avoid Unity thread restrictions.
-    /// </summary>
     void CalculateDistancesThreaded()
     {
         while (shouldCalculate)
@@ -125,6 +128,13 @@ public class EnemyDetection : MonoBehaviour
             playerDistance = cachedDistanceFromPlayer;
             coreDistances = new Dictionary<Transform, float>(cachedCoreDistances);
         }
+
+        /*Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, checkForBunching);
+        foreach(Collider c in checkForBunching)
+        {
+            if 
+        }*/
+
         if (player != null && playerDistance <= playerDetectionRange)
         {
             agent.SetDestination(player.position);
@@ -138,9 +148,7 @@ public class EnemyDetection : MonoBehaviour
             }
         }
     }
-    /// <summary>
-    /// Finds the nearest core from the cached distances.
-    /// </summary>
+
     Transform FindNearestCore(Dictionary<Transform, float> coreDistances)
     {
         if (coreDistances.Count == 0) return null;
