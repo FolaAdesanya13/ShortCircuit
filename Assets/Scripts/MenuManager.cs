@@ -17,6 +17,8 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         EventSystem.current.SetSelectedGameObject(playButton);
         /*loadingScreen.SetActive(false);
         controlsMenu.SetActive(false);
