@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -46,5 +47,10 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         playerInput.SwitchCurrentActionMap("Movement");
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadSceneAsync("TitleScreen");
     }
 }

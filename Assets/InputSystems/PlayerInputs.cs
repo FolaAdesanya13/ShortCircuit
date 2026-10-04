@@ -136,6 +136,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""quitToTitle"",
+                    ""type"": ""Button"",
+                    ""id"": ""33258c00-431f-48ba-9085-401114a3c1c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -380,6 +389,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2d680a9-2adf-445d-abb4-465c04c3ab23"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""quitToTitle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -421,6 +441,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Movement_look = m_Movement.FindAction("look", throwIfNotFound: true);
         m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
         m_Movement_pause = m_Movement.FindAction("pause", throwIfNotFound: true);
+        m_Movement_quitToTitle = m_Movement.FindAction("quitToTitle", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseAndResume = m_UI.FindAction("PauseAndResume", throwIfNotFound: true);
@@ -510,6 +531,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_look;
     private readonly InputAction m_Movement_Shoot;
     private readonly InputAction m_Movement_pause;
+    private readonly InputAction m_Movement_quitToTitle;
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
@@ -541,6 +563,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Movement/pause".
         /// </summary>
         public InputAction @pause => m_Wrapper.m_Movement_pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/quitToTitle".
+        /// </summary>
+        public InputAction @quitToTitle => m_Wrapper.m_Movement_quitToTitle;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -582,6 +608,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @pause.started += instance.OnPause;
             @pause.performed += instance.OnPause;
             @pause.canceled += instance.OnPause;
+            @quitToTitle.started += instance.OnQuitToTitle;
+            @quitToTitle.performed += instance.OnQuitToTitle;
+            @quitToTitle.canceled += instance.OnQuitToTitle;
         }
 
         /// <summary>
@@ -608,6 +637,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @pause.started -= instance.OnPause;
             @pause.performed -= instance.OnPause;
             @pause.canceled -= instance.OnPause;
+            @quitToTitle.started -= instance.OnQuitToTitle;
+            @quitToTitle.performed -= instance.OnQuitToTitle;
+            @quitToTitle.canceled -= instance.OnQuitToTitle;
         }
 
         /// <summary>
@@ -779,6 +811,13 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "quitToTitle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuitToTitle(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

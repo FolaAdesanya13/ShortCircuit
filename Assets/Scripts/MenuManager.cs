@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
     public void PlayPressed()
     {
         //loadingScreen.SetActive(true);
+        Time.timeScale = 1;
         StartCoroutine(LoadGameScene());
 
     }
