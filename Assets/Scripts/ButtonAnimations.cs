@@ -5,9 +5,9 @@ public class ButtonAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExi
 {
     private Vector3 originalScale;
     private float hoverScaleMult = 1.2f;
-    void Start()
+    void Awake()
     {
-        originalScale = transform.localScale;
+        originalScale = transform.localScale == Vector3.zero ? Vector3.one : transform.localScale;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

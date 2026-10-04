@@ -15,7 +15,7 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] private List<Transform> cores = new List<Transform>();
     [SerializeField] private GameObject enemy;
 
-    [SerializeField] private float playerDetectionRange = 30f;
+    [SerializeField] private float playerDetectionRange = 15f;
 
     private NavMeshAgent agent;
     private Thread distanceCalculationThread;
