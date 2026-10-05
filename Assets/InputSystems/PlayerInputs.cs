@@ -145,6 +145,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extractEnemies"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc53c78b-e25f-4480-973a-658ebce6e986"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -400,6 +409,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""quitToTitle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c47994b-fa42-4a1f-97d7-c648dbc3e579"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extractEnemies"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a944b07-4e20-4cb8-8aca-1c7621f22bcc"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extractEnemies"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -442,6 +473,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
         m_Movement_pause = m_Movement.FindAction("pause", throwIfNotFound: true);
         m_Movement_quitToTitle = m_Movement.FindAction("quitToTitle", throwIfNotFound: true);
+        m_Movement_extractEnemies = m_Movement.FindAction("extractEnemies", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseAndResume = m_UI.FindAction("PauseAndResume", throwIfNotFound: true);
@@ -532,6 +564,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Shoot;
     private readonly InputAction m_Movement_pause;
     private readonly InputAction m_Movement_quitToTitle;
+    private readonly InputAction m_Movement_extractEnemies;
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
@@ -567,6 +600,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Movement/quitToTitle".
         /// </summary>
         public InputAction @quitToTitle => m_Wrapper.m_Movement_quitToTitle;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/extractEnemies".
+        /// </summary>
+        public InputAction @extractEnemies => m_Wrapper.m_Movement_extractEnemies;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -611,6 +648,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @quitToTitle.started += instance.OnQuitToTitle;
             @quitToTitle.performed += instance.OnQuitToTitle;
             @quitToTitle.canceled += instance.OnQuitToTitle;
+            @extractEnemies.started += instance.OnExtractEnemies;
+            @extractEnemies.performed += instance.OnExtractEnemies;
+            @extractEnemies.canceled += instance.OnExtractEnemies;
         }
 
         /// <summary>
@@ -640,6 +680,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @quitToTitle.started -= instance.OnQuitToTitle;
             @quitToTitle.performed -= instance.OnQuitToTitle;
             @quitToTitle.canceled -= instance.OnQuitToTitle;
+            @extractEnemies.started -= instance.OnExtractEnemies;
+            @extractEnemies.performed -= instance.OnExtractEnemies;
+            @extractEnemies.canceled -= instance.OnExtractEnemies;
         }
 
         /// <summary>
@@ -818,6 +861,13 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQuitToTitle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "extractEnemies" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExtractEnemies(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class EnemyInitializer : MonoBehaviour
 {
@@ -7,11 +9,13 @@ public class EnemyInitializer : MonoBehaviour
     private Collider[] checks;
     public static event Action<int> PlayerPressed;
     private bool invokedYet;
+    [SerializeField] private Button activateButton;
 
     void Start()
     {
         checks = new Collider[2];
         invokedYet = false;
+        activateButton.gameObject.SetActive(false);
     }
     void checkPlayerRange()
     {
@@ -20,15 +24,19 @@ public class EnemyInitializer : MonoBehaviour
         {
             if (c.CompareTag("Player"))
             {
-                InvokeEnemies();
+                activateButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                activateButton.gameObject.SetActive(false);
             }
         }
     }
 
-    void InvokeEnemies()
+    public void InvokeEnemies(InputAction.CallbackContext input)
     {
-        //UI to show "click button to extract enemies"
-        PlayerPressed?.Invoke(5);
+        if (!input.performed || !activateButton.IsActive()) return;
+        PlayerPressed.Invoke(1);
         invokedYet = true;
     }
     void Update()

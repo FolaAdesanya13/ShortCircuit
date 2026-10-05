@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 //TO-DO: MAKE SPAWNING EFFICIENT FOR WHEN THE PLAYER HAS TO TRIGGER THE SPAWN;
@@ -21,11 +19,9 @@ public class EnemySpawn : MonoBehaviour
 
     public static List<EnemyHealth> enemies;
     public static List<EnemyHealth> deadEnemies;
-
-    private const int maxPossibleEnemies = 20;
-
     private Vector3 minBounds = new Vector3(-30f, -1.8f, 30f);
     private Vector3 maxBounds = new Vector3(30f, -1.8f, 80f);
+    private const int maxPossibleEnemies = 20;
 
     void Start()
     {
@@ -37,18 +33,36 @@ public class EnemySpawn : MonoBehaviour
         if (og == null) og = enemy.AddComponent<EnemyHealth>();
         enemies.Add(og);
         CreateAllEnemies();
+        WaitToActivateEnemies();
     }
 
     //CreateAllEnemies would need an int param to match the message invoked
     //so move the maxPossibleEnemies var to the initializer script
-    /*void OnEnable()
+    void OnEnable()
     {
-        EnemyInitializer.PlayerPressed += CreateAllEnemies;
+        EnemyInitializer.PlayerPressed += ActivateEnemies;
     }
     void OnDisable()
     {
-        EnemyInitializer.PlayerPressed -= CreateAllEnemies;
-    }*/
+        EnemyInitializer.PlayerPressed -= ActivateEnemies;
+    }
+
+    void WaitToActivateEnemies()
+    {
+        foreach (EnemyHealth eh in enemies)
+        {
+            if (eh != null && eh.gameObject != null)
+                eh.gameObject.SetActive(false);
+        }
+    }
+    void ActivateEnemies(int throwaway)
+    {
+        foreach (EnemyHealth eh in enemies)
+        {
+            if (eh != null && eh.gameObject != null)
+                eh.gameObject.SetActive(true);
+        }
+    }
 
     void CreateAllEnemies()
     {

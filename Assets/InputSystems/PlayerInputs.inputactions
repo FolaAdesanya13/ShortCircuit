@@ -59,6 +59,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "extractEnemies",
+                    "type": "Button",
+                    "id": "bc53c78b-e25f-4480-973a-658ebce6e986",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -312,6 +321,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "quitToTitle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c47994b-fa42-4a1f-97d7-c648dbc3e579",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "extractEnemies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a944b07-4e20-4cb8-8aca-1c7621f22bcc",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "extractEnemies",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
