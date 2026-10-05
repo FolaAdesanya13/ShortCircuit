@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-/*ugly ASF script bruh, literally ALL if statements, we persevere though ig*/
 public class OP_CutSceneManager : MonoBehaviour
 {
     private float skipScene = 5f;

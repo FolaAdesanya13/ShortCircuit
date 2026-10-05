@@ -12,22 +12,22 @@ using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
-    //public GameObject loadingScreen, controlsMenu, mainMenu;
-    public GameObject playButton;
+    [SerializeField] private GameObject loadingScreen; //controlsMenu, mainMenu;
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private Image loadingBar;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         EventSystem.current.SetSelectedGameObject(playButton);
-        /*loadingScreen.SetActive(false);
-        controlsMenu.SetActive(false);
+        loadingScreen.SetActive(false);
+        loadingBar.fillAmount = 0;
+        /*controlsMenu.SetActive(false);
         mainMenu.SetActive(true);*/
     }
 
     public void PlayPressed()
     {
-        //loadingScreen.SetActive(true);
+        loadingScreen.SetActive(true);
         Time.timeScale = 1;
         StartCoroutine(LoadGameScene());
 
@@ -35,10 +35,12 @@ public class MenuManager : MonoBehaviour
     private IEnumerator LoadGameScene()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+        loadingBar.fillAmount += asyncLoad.progress / 0.9f;
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+        if(asyncLoad.isDone) loadingScreen.SetActive(false);
     }
 
     /*public void ControlsPressed()
