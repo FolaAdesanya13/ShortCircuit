@@ -31,15 +31,8 @@ public class EnemyDetection : MonoBehaviour
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
 
-    /*Collider[] checkForBunching;
-    int bunchingCount;
-    const int bunchMax = 6;
-    float detectionRadius = 3.5f;*/
-
     void Start()
     {
-        /*bunchingCount = 0;
-        checkForBunching = new Collider[20];*/
         agent = GetComponent<NavMeshAgent>();
         cachedEnemyPosition = transform.position;
         cachedPlayerPosition = player != null ? player.position : Vector3.zero;
@@ -53,7 +46,6 @@ public class EnemyDetection : MonoBehaviour
             }
         }
 
-        // Start background thread for distance calculations
         distanceCalculationThread = new Thread(CalculateDistancesThreaded)
         {
             IsBackground = true
@@ -128,12 +120,6 @@ public class EnemyDetection : MonoBehaviour
             playerDistance = cachedDistanceFromPlayer;
             coreDistances = new Dictionary<Transform, float>(cachedCoreDistances);
         }
-
-        /*Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, checkForBunching);
-        foreach(Collider c in checkForBunching)
-        {
-            if 
-        }*/
 
         Transform nearestCore = FindNearestCore(coreDistances);
         float antiBunch = Vector3.Distance(transform.position, nearestCore.position);
