@@ -135,13 +135,15 @@ public class EnemyDetection : MonoBehaviour
             if 
         }*/
 
-        if (player != null && playerDistance <= playerDetectionRange)
+        Transform nearestCore = FindNearestCore(coreDistances);
+        float antiBunch = Vector3.Distance(transform.position, nearestCore.position);
+
+        if (player != null && playerDistance <= playerDetectionRange && antiBunch > playerDistance)
         {
             agent.SetDestination(player.position);
         }
         else
         {
-            Transform nearestCore = FindNearestCore(coreDistances);
             if (nearestCore != null)
             {
                 agent.SetDestination(nearestCore.position);
