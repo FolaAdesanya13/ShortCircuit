@@ -70,7 +70,7 @@ public class EnemySpawn : MonoBehaviour
         float zPos = Random.Range(minBounds.z, maxBounds.z);
         Vector3 spawnPos = new Vector3(xPos, yPos, zPos);
 
-        GameObject go = Instantiate(enemy, spawnPos, Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(enemy, spawnPos, Quaternion.identity);
         if (go == null)
         {
             Debug.LogError("Failed to instantiate enemy prefab.");

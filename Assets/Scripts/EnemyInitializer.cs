@@ -34,6 +34,7 @@ public class EnemyInitializer : MonoBehaviour
         if (!input.performed || !activateButton.IsActive()) return;
         PlayerPressed.Invoke(1);
         invokedYet = true;
+        activateButton.gameObject.SetActive(false);
     }
     void Update()
     {
