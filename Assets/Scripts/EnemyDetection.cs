@@ -15,7 +15,7 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] private List<Transform> cores = new List<Transform>();
     [SerializeField] private GameObject enemy;
 
-    [SerializeField] private float playerDetectionRange = 15f;
+    [SerializeField] private float playerDetectionRange = 12f;
 
     private NavMeshAgent agent;
     private Thread distanceCalculationThread;
@@ -30,6 +30,7 @@ public class EnemyDetection : MonoBehaviour
     // Thread-safe distance storage
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
+    private float reduceBunching = 7f;
 
     void Start()
     {
@@ -124,7 +125,7 @@ public class EnemyDetection : MonoBehaviour
         Transform nearestCore = FindNearestCore(coreDistances);
         float antiBunch = Vector3.Distance(transform.position, nearestCore.position);
 
-        if (player != null && playerDistance <= playerDetectionRange && antiBunch > playerDistance)
+        if (player != null && playerDistance <= playerDetectionRange && ((playerDistance - antiBunch) < reduceBunching))
         {
             agent.SetDestination(player.position);
         }

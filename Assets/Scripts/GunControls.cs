@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class GunControls : MonoBehaviour
 {
-    private float damage = 10f, range = 100f;
+    private float damage = 10f, range = 30f;
     public Camera cam;
     public ParticleSystem muzzleFlash;
     private bool isShooting;
