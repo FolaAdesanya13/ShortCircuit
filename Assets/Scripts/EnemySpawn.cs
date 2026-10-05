@@ -1,13 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//TO-DO: MAKE SPAWNING EFFICIENT FOR WHEN THE PLAYER HAS TO TRIGGER THE SPAWN;
-/*maybe I could keep spawn logic as is but have another list called inactive 
- * and when the game scene actually starts is when we make the enmies in them active 
- * so that way they aren't spawning as we are supposed to fight them, 
- * they're already spawned and awaiting for them to be activated with the player interactivity trigger*/
-
 //TO-DO: ALSO SEE WHY ENEMIES KEEP PHASING THROUGH THE CORES EVEN THOUGH THEY HAVE COLLIDERS
 //ALSO FOR THE FIRST TO DO JUST MAKE ALL ENEMIES INACTIVE AND SET VISIBLE TO FALSE
 //SLOWLY MAKE THEM ACTIVE AFTER PLAYER EVENT
@@ -36,8 +29,6 @@ public class EnemySpawn : MonoBehaviour
         WaitToActivateEnemies();
     }
 
-    //CreateAllEnemies would need an int param to match the message invoked
-    //so move the maxPossibleEnemies var to the initializer script
     void OnEnable()
     {
         EnemyInitializer.PlayerPressed += ActivateEnemies;

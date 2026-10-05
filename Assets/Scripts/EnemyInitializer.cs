@@ -26,10 +26,6 @@ public class EnemyInitializer : MonoBehaviour
             {
                 activateButton.gameObject.SetActive(true);
             }
-            else
-            {
-                activateButton.gameObject.SetActive(false);
-            }
         }
     }
 
