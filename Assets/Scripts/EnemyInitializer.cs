@@ -13,16 +13,16 @@ public class EnemyInitializer : MonoBehaviour
 
     void Start()
     {
-        checks = new Collider[2];
+        checks = new Collider[10];
         invokedYet = false;
         activateButton.gameObject.SetActive(false);
     }
-    void checkPlayerRange()
+    void CheckPlayerRange()
     {
-        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, checks);
-        foreach(Collider c in checks)
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, checks);
+        for(int i = 0; i < hits; i++)
         {
-            if (c.CompareTag("Player"))
+            if (checks[i].CompareTag("Player"))
             {
                 activateButton.gameObject.SetActive(true);
             }
@@ -38,6 +38,6 @@ public class EnemyInitializer : MonoBehaviour
     }
     void Update()
     {
-        if (!invokedYet) checkPlayerRange();
+        if (!invokedYet) CheckPlayerRange();
     }
 }
