@@ -15,7 +15,7 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] private List<Transform> cores = new List<Transform>();
     [SerializeField] private GameObject enemy;
 
-    [SerializeField] private float playerDetectionRange = 12.5f;
+    [SerializeField] private float playerDetectionRange = 15f;
 
     private NavMeshAgent agent;
     private Thread distanceCalculationThread;
@@ -30,7 +30,7 @@ public class EnemyDetection : MonoBehaviour
     // Thread-safe distance storage
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
-    private float reduceBunching = 7f, minSpeed = 7.5f, maxSpeed = 12f;
+    private float reduceBunching = 12f, minSpeed = 7.5f, maxSpeed = 12f;
 
     void Start()
     {
