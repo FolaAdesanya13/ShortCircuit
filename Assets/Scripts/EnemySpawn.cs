@@ -105,6 +105,10 @@ public class EnemySpawn : MonoBehaviour
 
     void Respawn()
     {
+        float xPos = Random.Range(minBounds.x, maxBounds.x);
+        float yPos = Random.Range(minBounds.y, maxBounds.y);
+        float zPos = Random.Range(minBounds.z, maxBounds.z);
+        Vector3 respawnPos = new Vector3(xPos, yPos, zPos);
         if (deadEnemies.Count >= 3)
         {
             for (int i = deadEnemies.Count - 1; i >= 0; i--)
@@ -113,6 +117,7 @@ public class EnemySpawn : MonoBehaviour
                 enemies.Add(eh);
                 deadEnemies.RemoveAt(i);
                 eh.Respawned();
+                eh.gameObject.transform.position = respawnPos;
                 eh.gameObject.SetActive(true);
             }
         }
