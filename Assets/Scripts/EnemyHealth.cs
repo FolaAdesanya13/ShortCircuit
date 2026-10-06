@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
     }
     private void DeadFR()
     {
-        if (timesDied >= 3) Destroy(enemy);
+        if (timesDied >= 10) Destroy(enemy);
     }
     private void FixedUpdate()
     {

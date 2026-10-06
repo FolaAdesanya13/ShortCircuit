@@ -4,15 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-
-/*TO-DO: UN-COMMENT SCRIPTS WHEN THE DESIGN FOR SAID ELEMENTS ARE DONE, 
- * COMMENTED THEM OUT BECAUSE OF NULL POINTER EXCEPTIONS 
- * BUT LOGICALLY SPEAKING THEY SHOULD BE GOOD SO NO CHANGE REQUIRED*/
-
-
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private GameObject loadingScreen; //controlsMenu, mainMenu;
+    [SerializeField] private GameObject loadingScreen; //controlsMenu;
     [SerializeField] private GameObject playButton;
     [SerializeField] private Image loadingBar;
 
@@ -21,8 +15,7 @@ public class MenuManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(playButton);
         loadingScreen.SetActive(false);
         loadingBar.fillAmount = 0;
-        /*controlsMenu.SetActive(false);
-        mainMenu.SetActive(true);*/
+        /*controlsMenu.SetActive(false);*/
     }
 
     public void PlayPressed()
@@ -35,9 +28,9 @@ public class MenuManager : MonoBehaviour
     private IEnumerator LoadGameScene()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
-        loadingBar.fillAmount += asyncLoad.progress / 0.9f;
         while (!asyncLoad.isDone)
         {
+            loadingBar.fillAmount += asyncLoad.progress / 0.9f;
             yield return null;
         }
         if(asyncLoad.isDone) loadingScreen.SetActive(false);
@@ -46,13 +39,11 @@ public class MenuManager : MonoBehaviour
     /*public void ControlsPressed()
     {
         controlsMenu.SetActive(true);
-        mainMenu.SetActive(false);
     }
 
     public void ControlsBackButton()
     {
         controlsMenu.SetActive(false);
-        mainMenu.SetActive(true);
     }*/
 
     public void SettingsPressed()
