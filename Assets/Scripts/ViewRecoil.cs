@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ViewRecoil : MonoBehaviour
 {
-
-    public Vector3 currRotation, targetRotation;
-    public float recoilX = -1.5f, recoilY = 0.25f, recoilZ = 2.0f;
-    public float snappiness = 7.5f, returnStrength = 15.0f;
+    [SerializeField]
+    private Vector3 currRotation, targetRotation;
+    private float recoilX = -1.5f, recoilY = 0.25f, recoilZ = 2.0f;
+    private float snappiness = 7.5f, returnStrength = 15.0f;
 
     void Update()
     {

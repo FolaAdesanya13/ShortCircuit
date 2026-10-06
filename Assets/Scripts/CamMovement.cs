@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class CamMovement : MonoBehaviour
 {
-    public Camera cam;
-    public InputActionReference look;
+    [SerializeField] private Camera cam;
+    [SerializeField] private InputActionReference look;
     private float xRotation = 0f, yRotation = 0f;
     private float mouseSens = 30f, gamepadSens = 150f;
 

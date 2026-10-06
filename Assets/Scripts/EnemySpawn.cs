@@ -6,12 +6,12 @@ using UnityEngine;
 //SLOWLY MAKE THEM ACTIVE AFTER PLAYER EVENT
 public class EnemySpawn : MonoBehaviour
 {
-    public Transform player;
-    public GameObject enemy;
+    [SerializeField] private Transform player;
+    [SerializeField] private GameObject enemy;
     private CapsuleCollider cc;
 
-    public static List<EnemyHealth> enemies;
-    public static List<EnemyHealth> deadEnemies;
+    private static List<EnemyHealth> enemies;
+    private static List<EnemyHealth> deadEnemies;
     private Vector3 minBounds = new Vector3(-30f, -1.8f, 30f);
     private Vector3 maxBounds = new Vector3(30f, -1.8f, 80f);
     private const int maxPossibleEnemies = 20;

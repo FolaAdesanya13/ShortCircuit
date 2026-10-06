@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public GameObject enemy;
+    [SerializeField] private GameObject enemy;
     private float health = 50f;
     private const float initialHealth = 50f;
     private bool isDead = false;

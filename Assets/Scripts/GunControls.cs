@@ -4,11 +4,11 @@ using UnityEngine.InputSystem;
 public class GunControls : MonoBehaviour
 {
     private float damage = 10f, range = 30f;
-    public Camera cam;
-    public ParticleSystem muzzleFlash;
+    [SerializeField] private Camera cam;
+    [SerializeField] private ParticleSystem muzzleFlash;
     private bool isShooting;
     private Quaternion initialRotation = Quaternion.Euler(0f, 0f, 0f);
-    public GameObject impactEffect;
+    [SerializeField] private GameObject impactEffect;
     private float nextTimeToFire = 0f, fireRate = 20f;
     private ViewRecoil recoil;
 
