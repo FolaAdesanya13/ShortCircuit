@@ -30,7 +30,7 @@ public class EnemyDetection : MonoBehaviour
     // Thread-safe distance storage
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
-    private float reduceBunching = 7f;
+    private float reduceBunching = 7f, minSpeed = 7.5f, maxSpeed = 12f;
 
     void Start()
     {
@@ -136,6 +136,7 @@ public class EnemyDetection : MonoBehaviour
                 agent.SetDestination(nearestCore.position);
             }
         }
+        agent.speed = Random.Range(minSpeed, maxSpeed);
     }
 
     Transform FindNearestCore(Dictionary<Transform, float> coreDistances)
