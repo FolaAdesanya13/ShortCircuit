@@ -11,9 +11,20 @@ public class GunControls : MonoBehaviour
     [SerializeField] private GameObject impactEffect;
     private float nextTimeToFire = 0f, fireRate = 20f;
     private ViewRecoil recoil;
+    [SerializeField] private GameObject crosshair;
+
+    private Vector3 ogCrosshairScale, tgtCrosshairScale; //probably need to change position of crosshair slightly to add more responsiveness
+    private float shootingScaleMult = 1.7f;
+    void Awake()
+    {
+        ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
+        tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
+    }
 
     private void Start()
     {
+        ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
+        tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
         transform.SetLocalPositionAndRotation(transform.localPosition, initialRotation);
         recoil = transform.Find("CameraRot/CameraRecoil").GetComponent<ViewRecoil>();
     }
@@ -28,8 +39,16 @@ public class GunControls : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext input)
     {
-        if (input.started) isShooting = true;
-        if (input.canceled) isShooting = false;
+        if (input.started)
+        {
+            crosshair.transform.localScale = Vector3.Slerp(ogCrosshairScale, tgtCrosshairScale, 1);
+            isShooting = true;
+        }
+        if (input.canceled)
+        {
+            crosshair.transform.localScale = Vector3.Slerp(tgtCrosshairScale, ogCrosshairScale, 1);
+            isShooting = false;
+        }
     }
 
     private void ShootLogic()
