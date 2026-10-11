@@ -31,6 +31,7 @@ public class EnemyDetection : MonoBehaviour
     private float cachedDistanceFromPlayer;
     private Dictionary<Transform, float> cachedCoreDistances = new Dictionary<Transform, float>();
     private float reduceBunching = 12f, minSpeed = 7.5f, maxSpeed = 12f;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class EnemyDetection : MonoBehaviour
             IsBackground = true
         };
         distanceCalculationThread.Start();
+        agent.speed = Random.Range(minSpeed, maxSpeed);
         InvokeRepeating(nameof(UpdatePath), 0f, 0.2f);
     }
 
@@ -136,7 +138,17 @@ public class EnemyDetection : MonoBehaviour
                 agent.SetDestination(nearestCore.position);
             }
         }
-        agent.speed = Random.Range(minSpeed, maxSpeed);
+
+        /*if(playerDistance <= 2 || antiBunch <= 2)
+        {
+            animator.SetBool("attacking", true);
+            animator.SetBool("running", false);
+        }
+        else
+        {
+            animator.SetBool("attacking", false);
+            animator.SetBool("running", true);
+        }*/
     }
 
     Transform FindNearestCore(Dictionary<Transform, float> coreDistances)
