@@ -43,7 +43,7 @@ public class GunControls : MonoBehaviour
             AmmoCount--;
             nextTimeToFire = Time.time + 1/fireRate;
             ShootLogic();
-            ammo.text = AmmoCount.ToString();
+            ammo.SetText("{0}", AmmoCount);
         }
         if (AmmoCount <= 0 && !isReloading)
         {
@@ -70,7 +70,7 @@ public class GunControls : MonoBehaviour
         isReloading = true;
         yield return new WaitForSeconds(reloadTimer);
         AmmoCount = maxAmmo;
-        ammo.text = AmmoCount.ToString();
+        ammo.SetText("{0}", AmmoCount);
         isReloading = false;
     }
 
