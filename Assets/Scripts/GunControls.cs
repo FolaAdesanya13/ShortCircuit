@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class GunControls : MonoBehaviour
 {
@@ -12,6 +14,11 @@ public class GunControls : MonoBehaviour
     private float nextTimeToFire = 0f, fireRate = 20f;
     private ViewRecoil recoil;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private TextMeshProUGUI ammo;
+    private const int maxAmmo = 150;
+    private int AmmoCount = 150;
+    private bool isReloading = false;
+    private float reloadTimer = 1.5f;
 
     private Vector3 ogCrosshairScale, tgtCrosshairScale; //probably need to change position of crosshair slightly to add more responsiveness
     private float shootingScaleMult = 1.7f;
@@ -23,6 +30,7 @@ public class GunControls : MonoBehaviour
 
     private void Start()
     {
+        AmmoCount = maxAmmo;
         ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
         tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
         transform.SetLocalPositionAndRotation(transform.localPosition, initialRotation);
@@ -30,10 +38,16 @@ public class GunControls : MonoBehaviour
     }
     void Update()
     {
-        if (isShooting && Time.time >= nextTimeToFire)
+        if (isShooting && Time.time >= nextTimeToFire && AmmoCount > 0)
         {
+            AmmoCount--;
             nextTimeToFire = Time.time + 1/fireRate;
             ShootLogic();
+            ammo.text = AmmoCount.ToString();
+        }
+        if (AmmoCount <= 0 && !isReloading)
+        {
+            StartCoroutine(Reload());
         }
     }
 
@@ -49,6 +63,15 @@ public class GunControls : MonoBehaviour
             crosshair.transform.localScale = Vector3.Slerp(tgtCrosshairScale, ogCrosshairScale, 1);
             isShooting = false;
         }
+    }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(reloadTimer);
+        AmmoCount = maxAmmo;
+        ammo.text = AmmoCount.ToString();
+        isReloading = false;
     }
 
     private void ShootLogic()
