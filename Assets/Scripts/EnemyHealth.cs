@@ -8,11 +8,16 @@ public class EnemyHealth : MonoBehaviour
     private const float initialHealth = 50f;
     private bool isDead = false;
     private int timesDied = 0;
+    [SerializeField] private GameObject explosionEffect;
     public void TakeDamage(float amt)
     {
         health -= amt;
         if(health <= 0)
         {
+            if (explosionEffect != null)
+            {
+                Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            }
             isDead = true;
         }
         else
