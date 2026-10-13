@@ -5,7 +5,7 @@
 [![Unity Version](https://img.shields.io/badge/Unity-2022.3%20LTS-black?style=for-the-badge&logo=unity&logoColor=white)](https://unity.com/)
 [![C#](https://img.shields.io/badge/Code-C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 
-**A 3D First-Person Shooter prototype focused on runtime performance optimization, clean component-based architecture, and efficient state management in Unity.**
+**A 3D First-Person Shooter prototype focused on runtime performance optimization, clean component-based architecture, and efficient state management in Unity.** (work in progress)
 
 </div>
 
