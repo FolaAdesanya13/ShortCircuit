@@ -7,6 +7,8 @@
 
 **A 3D First-Person Shooter prototype focused on runtime performance optimization, clean component-based architecture, and efficient state management in Unity.** (work in progress)
 
+· [🚀 **Download Standalone Build (.exe)**](#-how-to-play--test-the-game)
+
 </div>
 
 ---
