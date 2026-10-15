@@ -16,6 +16,7 @@
   <img width="400" height="250" alt="ShortCircuit_DemoGameplay (2)" src="https://github.com/user-attachments/assets/417de846-ba24-4800-b57c-7c938caf2fdb" />
 </div>
 
+---
 ## ⚙️ Gameplay Engineering & Architecture
 
 **Short-Circuit** is built to explore how performance patterns and modular software design can prevent common bottlenecks in rapid indie game prototyping.
