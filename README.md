@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Unity Version](https://img.shields.io/badge/Unity-2022.3%20LTS-black?style=for-the-badge&logo=unity&logoColor=white)](https://unity.com/)
+[![Unity Version](https://img.shields.io/badge/Unity-6000.3-black?style=for-the-badge&logo=unity&logoColor=white)](https://unity.com/)
 [![C#](https://img.shields.io/badge/Code-C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 
 **A 3D First-Person Shooter prototype focused on runtime performance optimization, clean component-based architecture, and efficient state management in Unity.** (work in progress)
@@ -44,7 +44,7 @@
 
 ## 🛠️ Technical Stack
 
-* **Engine:** Unity (2022.3 LTS)
+* **Engine:** Unity (6000.3)
 * **Language:** C#
 * **Key Patterns:** Object Pooling, Component-Based Composition, Multi-threading, Manager Patterns.
 
@@ -59,7 +59,7 @@ If you are a developer looking to inspect in the Unity Editor:
        git clone https://github.com/FolaAdesanya13/ShortCircuit.git
 
 2. **Open in Unity:**
-   * Open **Unity Hub**, select **Add project from disk**, and choose the cloned folder (Recommended: **Unity 2022.3 LTS**).
+   * Open **Unity Hub**, select **Add project from disk**, and choose the cloned folder (Recommended: **Unity 6000.3**).
 ---
 
 ## 👤 Author
