@@ -7,8 +7,6 @@
 
 **A 3D First-Person Shooter prototype focused on runtime performance optimization, clean component-based architecture, and efficient state management in Unity.** (work in progress)
 
-[🚀 **Download Standalone Build (Short-Circuit.exe)**](#-how-to-play--test-the-game)
-
 </div>
 
 ---
@@ -17,13 +15,6 @@
 <div align="center">
   <img width="400" height="250" alt="ShortCircuit_DemoGameplay (2)" src="https://github.com/user-attachments/assets/417de846-ba24-4800-b57c-7c938caf2fdb" />
 </div>
----
-## 🕹️ How to Play & Test the Game
-*Not looking to review source code? You can experience the game directly in two ways:*
-
-1. **Play Instantly in Browser:** Click the [Itch.io WebGL Link](https://your-itch-io-link-here.itch.io/short-circuit) to play right inside your web browser with zero downloads required.
-2. **Download Standalone Build:** Head over to the [Releases Page](../../releases) to download the compressed Windows `.exe` build for native performance testing.
-
 ---
 
 ## ⚙️ Gameplay Engineering & Architecture
