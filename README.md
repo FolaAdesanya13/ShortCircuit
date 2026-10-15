@@ -15,11 +15,6 @@
 <div align="center">
   <img width="400" height="250" alt="ShortCircuit_DemoGameplay (2)" src="https://github.com/user-attachments/assets/417de846-ba24-4800-b57c-7c938caf2fdb" />
 </div>
-
-<div align="center">
-  <video src="docs/media/short-circuit-preview.mp4" width="100%" autoplay loop muted playsinline></video>
-</div>
-
 ---
 
 ## ⚙️ Gameplay Engineering & Architecture
