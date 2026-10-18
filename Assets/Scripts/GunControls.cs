@@ -1,7 +1,8 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class GunControls : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class GunControls : MonoBehaviour
 
     private Vector3 ogCrosshairScale, tgtCrosshairScale; //probably need to change position of crosshair slightly to add more responsiveness
     private float shootingScaleMult = 1.7f;
+
+    [SerializeField] private AudioSource shootSource;
+
     void Awake()
     {
         ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
@@ -30,6 +34,7 @@ public class GunControls : MonoBehaviour
 
     private void Start()
     {
+        shootSource = GetComponent<AudioSource>();
         AmmoCount = maxAmmo;
         ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
         tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
@@ -47,13 +52,15 @@ public class GunControls : MonoBehaviour
         }
         if (AmmoCount <= 0 && !isReloading)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(AutoReload());
         }
+
+        SFX();
     }
 
     public void Shoot(InputAction.CallbackContext input)
     {
-        if (input.started)
+        if (input.started && AmmoCount > 0)
         {
             crosshair.transform.localScale = Vector3.Slerp(ogCrosshairScale, tgtCrosshairScale, 1);
             isShooting = true;
@@ -65,7 +72,7 @@ public class GunControls : MonoBehaviour
         }
     }
 
-    IEnumerator Reload()
+    IEnumerator AutoReload()
     {
         isReloading = true;
         yield return new WaitForSeconds(reloadTimer);
@@ -78,6 +85,7 @@ public class GunControls : MonoBehaviour
     {
         muzzleFlash.Play();
         recoil.AddRecoil();
+        SFX();
         RaycastHit hit;
         GameObject impact = null;
 
@@ -88,6 +96,24 @@ public class GunControls : MonoBehaviour
 
             impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 0.4f);
+        }
+    }
+
+    private void SFX()
+    {
+        if (isShooting)
+        {
+            if (!shootSource.isPlaying)
+            {
+                shootSource.Play();
+            }
+        }
+        else
+        {
+            if (shootSource.isPlaying)
+            {
+                shootSource.Stop();
+            }
         }
     }
 }
