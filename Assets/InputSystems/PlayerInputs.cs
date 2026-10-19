@@ -154,6 +154,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""a58abf1f-2b59-433f-86c9-8852ab265c55"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -431,6 +440,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""extractEnemies"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bead9ee-cc42-4e06-9d64-f6fbb093653b"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76f6cf7b-e4d8-40c5-90d0-7430e50eafc7"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -474,6 +505,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Movement_pause = m_Movement.FindAction("pause", throwIfNotFound: true);
         m_Movement_quitToTitle = m_Movement.FindAction("quitToTitle", throwIfNotFound: true);
         m_Movement_extractEnemies = m_Movement.FindAction("extractEnemies", throwIfNotFound: true);
+        m_Movement_Reload = m_Movement.FindAction("Reload", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseAndResume = m_UI.FindAction("PauseAndResume", throwIfNotFound: true);
@@ -565,6 +597,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_pause;
     private readonly InputAction m_Movement_quitToTitle;
     private readonly InputAction m_Movement_extractEnemies;
+    private readonly InputAction m_Movement_Reload;
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
@@ -604,6 +637,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Movement/extractEnemies".
         /// </summary>
         public InputAction @extractEnemies => m_Wrapper.m_Movement_extractEnemies;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/Reload".
+        /// </summary>
+        public InputAction @Reload => m_Wrapper.m_Movement_Reload;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -651,6 +688,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @extractEnemies.started += instance.OnExtractEnemies;
             @extractEnemies.performed += instance.OnExtractEnemies;
             @extractEnemies.canceled += instance.OnExtractEnemies;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         /// <summary>
@@ -683,6 +723,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @extractEnemies.started -= instance.OnExtractEnemies;
             @extractEnemies.performed -= instance.OnExtractEnemies;
             @extractEnemies.canceled -= instance.OnExtractEnemies;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         /// <summary>
@@ -868,6 +911,13 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnExtractEnemies(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReload(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

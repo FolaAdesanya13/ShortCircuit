@@ -21,10 +21,12 @@ public class GunControls : MonoBehaviour
     private bool isReloading = false;
     private float reloadTimer = 1.5f;
 
-    private Vector3 ogCrosshairScale, tgtCrosshairScale; //probably need to change position of crosshair slightly to add more responsiveness
+    private Vector3 ogCrosshairScale, tgtCrosshairScale;
     private float shootingScaleMult = 1.7f;
 
     [SerializeField] private AudioSource shootSource;
+    [SerializeField] private PlayerInput playerInput;
+    private float lastShotTime = -1f;
 
     void Awake()
     {
@@ -69,6 +71,15 @@ public class GunControls : MonoBehaviour
         {
             crosshair.transform.localScale = Vector3.Slerp(tgtCrosshairScale, ogCrosshairScale, 1);
             isShooting = false;
+        }
+    }
+
+    public void OnReload(InputAction.CallbackContext input)
+    {
+        if(input.performed)
+        {
+            AmmoCount = maxAmmo;
+            ammo.SetText("{0}", AmmoCount);
         }
     }
 
