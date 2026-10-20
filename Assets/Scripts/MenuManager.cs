@@ -12,15 +12,29 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        EventSystem.current.SetSelectedGameObject(playButton);
-        loadingScreen.SetActive(false);
-        loadingBar.fillAmount = 0;
+        if (playButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(playButton);
+        }
+
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(false);
+        }
+
+        if (loadingBar != null)
+        {
+            loadingBar.fillAmount = 0;
+        }
         /*controlsMenu.SetActive(false);*/
     }
 
     public void PlayPressed()
     {
-        loadingScreen.SetActive(true);
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(true);
+        }
         Time.timeScale = 1;
         StartCoroutine(LoadGameScene());
 
@@ -30,10 +44,16 @@ public class MenuManager : MonoBehaviour
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
         while (!asyncLoad.isDone)
         {
-            loadingBar.fillAmount += asyncLoad.progress / 0.9f;
+            if (loadingBar != null)
+            {
+                loadingBar.fillAmount += asyncLoad.progress / 0.9f;
+            }
             yield return null;
         }
-        if(asyncLoad.isDone) loadingScreen.SetActive(false);
+        if(asyncLoad.isDone && loadingScreen != null) 
+        {
+            loadingScreen.SetActive(false);
+        }
     }
 
     /*public void ControlsPressed()

@@ -36,6 +36,13 @@ public class EnemyDetection : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+            enabled = false;
+            return;
+        }
+
         cachedEnemyPosition = transform.position;
         cachedPlayerPosition = player != null ? player.position : Vector3.zero;
 
@@ -99,6 +106,8 @@ public class EnemyDetection : MonoBehaviour
 
     void UpdatePath()
     {
+        if (agent == null) return;
+
         // Cache all positions from main thread (this is safe)
         lock (lockObj)
         {
@@ -112,7 +121,7 @@ public class EnemyDetection : MonoBehaviour
                     cachedCorePositions[core] = core.position;
             }
         }
-        if (!enemy.activeSelf) return;
+        if (enemy == null || !enemy.activeSelf) return;
 
         float playerDistance;
         Dictionary<Transform, float> coreDistances;
@@ -125,6 +134,8 @@ public class EnemyDetection : MonoBehaviour
         }
 
         Transform nearestCore = FindNearestCore(coreDistances);
+        if (nearestCore == null) return;
+
         float antiBunch = Vector3.Distance(transform.position, nearestCore.position);
 
         if (player != null && playerDistance <= playerDetectionRange && ((playerDistance - antiBunch) < reduceBunching))

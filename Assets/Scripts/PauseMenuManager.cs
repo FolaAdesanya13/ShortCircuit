@@ -11,8 +11,18 @@ public class PauseMenuManager : MonoBehaviour
 
     void Start()
     {
-        pauseMenu.SetActive(false);
-        if (playerInput == null) playerInput = GetComponent<PlayerInput>();
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
+        if (playerInput == null)
+        {
+            playerInput = GetComponent<PlayerInput>();
+            if (playerInput == null)
+            {
+                Debug.LogError("PlayerInput component not found on " + gameObject.name);
+            }
+        }
     }
     void Awake()
     {
@@ -23,6 +33,8 @@ public class PauseMenuManager : MonoBehaviour
     public void pauseGame(InputAction.CallbackContext input)
     {
         if (!input.performed) return;
+
+        if (pauseMenu == null || resume == null) return;
 
         if (!pauseMenu.activeSelf)
         {
@@ -44,9 +56,15 @@ public class PauseMenuManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        pauseMenu.SetActive(false);
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
         Time.timeScale = 1f;
-        playerInput.SwitchCurrentActionMap("Movement");
+        if (playerInput != null)
+        {
+            playerInput.SwitchCurrentActionMap("Movement");
+        }
     }
 
     public void Quit()

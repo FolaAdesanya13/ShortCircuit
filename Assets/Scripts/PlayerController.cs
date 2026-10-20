@@ -16,10 +16,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        if (cc == null)
+        {
+            Debug.LogError("CharacterController component not found on " + gameObject.name);
+            enabled = false;
+        }
     }
 
     void Update()
     {
+        if (cc == null) return;
+
         isGrounded = cc.isGrounded;
 
         Vector3 movementDirection = Vector3.zero;

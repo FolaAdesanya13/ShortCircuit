@@ -15,10 +15,15 @@ public class EnemyInitializer : MonoBehaviour
     {
         checks = new Collider[10];
         invokedYet = false;
-        activateButton.gameObject.SetActive(false);
+        if (activateButton != null)
+        {
+            activateButton.gameObject.SetActive(false);
+        }
     }
     void CheckPlayerRange()
     {
+        if (activateButton == null) return;
+
         int hits = Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, checks);
         for(int i = 0; i < hits; i++)
         {
@@ -31,8 +36,11 @@ public class EnemyInitializer : MonoBehaviour
 
     public void InvokeEnemies(InputAction.CallbackContext input)
     {
-        if (!input.performed || !activateButton.IsActive()) return;
-        PlayerPressed.Invoke(1);
+        if (!input.performed || activateButton == null || !activateButton.IsActive()) return;
+        if (PlayerPressed != null)
+        {
+            PlayerPressed.Invoke(1);
+        }
         invokedYet = true;
         activateButton.gameObject.SetActive(false);
     }

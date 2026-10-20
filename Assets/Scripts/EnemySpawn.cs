@@ -22,6 +22,12 @@ public class EnemySpawn : MonoBehaviour
         enemies = new List<EnemyHealth>();
         deadEnemies = new List<EnemyHealth>();
 
+        if (enemy == null)
+        {
+            Debug.LogError("Enemy prefab not assigned in " + gameObject.name);
+            return;
+        }
+
         EnemyHealth og = enemy.GetComponent<EnemyHealth>();
         if (og == null) og = enemy.AddComponent<EnemyHealth>();
         enemies.Add(og);
@@ -65,6 +71,12 @@ public class EnemySpawn : MonoBehaviour
 
     void Spawn()
     {
+        if (enemy == null)
+        {
+            Debug.LogError("Enemy prefab is null in Spawn method");
+            return;
+        }
+
         float xPos = Random.Range(minBounds.x, maxBounds.x);
         float yPos = Random.Range(minBounds.y, maxBounds.y);
         float zPos = Random.Range(minBounds.z, maxBounds.z);
@@ -94,11 +106,14 @@ public class EnemySpawn : MonoBehaviour
         for (int i = enemies.Count - 1; i >= 0; i--)
         {
             EnemyHealth eh = enemies[i];
-            if (eh.IsDead())
+            if (eh != null && eh.IsDead())
             {
                 deadEnemies.Add(eh);
                 enemies.RemoveAt(i);
-                eh.gameObject.SetActive(false);
+                if (eh.gameObject != null)
+                {
+                    eh.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -114,11 +129,17 @@ public class EnemySpawn : MonoBehaviour
             for (int i = deadEnemies.Count - 1; i >= 0; i--)
             {
                 EnemyHealth eh = deadEnemies[i];
-                enemies.Add(eh);
-                deadEnemies.RemoveAt(i);
-                eh.Respawned();
-                eh.gameObject.transform.position = respawnPos;
-                eh.gameObject.SetActive(true);
+                if (eh != null)
+                {
+                    enemies.Add(eh);
+                    deadEnemies.RemoveAt(i);
+                    eh.Respawned();
+                    if (eh.gameObject != null)
+                    {
+                        eh.gameObject.transform.position = respawnPos;
+                        eh.gameObject.SetActive(true);
+                    }
+                }
             }
         }
     }

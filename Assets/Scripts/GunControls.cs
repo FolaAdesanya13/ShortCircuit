@@ -30,18 +30,47 @@ public class GunControls : MonoBehaviour
 
     void Awake()
     {
-        ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
+        if (crosshair == null)
+        {
+            Debug.LogError("Crosshair GameObject not assigned in " + gameObject.name);
+            ogCrosshairScale = Vector3.one;
+        }
+        else
+        {
+            ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
+        }
         tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
     }
 
     private void Start()
     {
         shootSource = GetComponent<AudioSource>();
+        if (shootSource == null)
+        {
+            Debug.LogError("AudioSource component not found on " + gameObject.name);
+        }
+
         AmmoCount = maxAmmo;
-        ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
-        tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
+        if (crosshair != null)
+        {
+            ogCrosshairScale = crosshair.transform.localScale == Vector3.zero ? Vector3.one : crosshair.transform.localScale;
+            tgtCrosshairScale = ogCrosshairScale * shootingScaleMult;
+        }
         transform.SetLocalPositionAndRotation(transform.localPosition, initialRotation);
-        recoil = transform.Find("CameraRot/CameraRecoil").GetComponent<ViewRecoil>();
+
+        Transform cameraRecoilTransform = transform.Find("CameraRot/CameraRecoil");
+        if (cameraRecoilTransform != null)
+        {
+            recoil = cameraRecoilTransform.GetComponent<ViewRecoil>();
+            if (recoil == null)
+            {
+                Debug.LogError("ViewRecoil component not found on CameraRecoil");
+            }
+        }
+        else
+        {
+            Debug.LogError("CameraRot/CameraRecoil path not found");
+        }
     }
     void Update()
     {
@@ -50,7 +79,10 @@ public class GunControls : MonoBehaviour
             AmmoCount--;
             nextTimeToFire = Time.time + 1/fireRate;
             ShootLogic();
-            ammo.SetText("{0}", AmmoCount);
+            if (ammo != null)
+            {
+                ammo.SetText("{0}", AmmoCount);
+            }
         }
         if (AmmoCount <= 0 && !isReloading)
         {
@@ -62,6 +94,8 @@ public class GunControls : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext input)
     {
+        if (crosshair == null) return;
+
         if (input.started && AmmoCount > 0)
         {
             crosshair.transform.localScale = Vector3.Slerp(ogCrosshairScale, tgtCrosshairScale, 1);
@@ -79,7 +113,10 @@ public class GunControls : MonoBehaviour
         if(input.performed)
         {
             AmmoCount = maxAmmo;
-            ammo.SetText("{0}", AmmoCount);
+            if (ammo != null)
+            {
+                ammo.SetText("{0}", AmmoCount);
+            }
         }
     }
 
@@ -88,30 +125,46 @@ public class GunControls : MonoBehaviour
         isReloading = true;
         yield return new WaitForSeconds(reloadTimer);
         AmmoCount = maxAmmo;
-        ammo.SetText("{0}", AmmoCount);
+        if (ammo != null)
+        {
+            ammo.SetText("{0}", AmmoCount);
+        }
         isReloading = false;
     }
 
     private void ShootLogic()
     {
-        muzzleFlash.Play();
-        recoil.AddRecoil();
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.Play();
+        }
+
+        if (recoil != null)
+        {
+            recoil.AddRecoil();
+        }
+
         SFX();
         RaycastHit hit;
         GameObject impact = null;
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+        if (cam != null && Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
         {
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
             if (target != null) target.TakeDamage(damage);
 
-            impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impact, 0.4f);
+            if (impactEffect != null)
+            {
+                impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impact, 0.4f);
+            }
         }
     }
 
     private void SFX()
     {
+        if (shootSource == null) return;
+
         if (isShooting)
         {
             if (!shootSource.isPlaying)

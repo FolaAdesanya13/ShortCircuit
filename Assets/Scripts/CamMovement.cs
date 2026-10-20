@@ -10,12 +10,18 @@ public class CamMovement : MonoBehaviour
 
     void Start()
     {
+        if (cam == null)
+        {
+            Debug.LogError("Camera reference is not assigned in " + gameObject.name);
+        }
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
+        if (cam == null || look == null || look.action == null) return;
+
         Vector2 lookInput = look.action.ReadValue<Vector2>();
         float sensitivity = lookInput.magnitude > 2f ? mouseSens : gamepadSens;
         Vector2 scaledInput = lookInput * sensitivity * Time.deltaTime;
