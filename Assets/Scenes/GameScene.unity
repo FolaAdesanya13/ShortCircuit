@@ -366,6 +366,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &97977999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97977991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c816abffdae77438f3d45026bb086f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttacks
 --- !u!43 &99086884
 Mesh:
   m_ObjectHideFlags: 0
@@ -1074,6 +1086,7 @@ GameObject:
   - component: {fileID: 169086218}
   - component: {fileID: 169086219}
   - component: {fileID: 169086220}
+  - component: {fileID: 169086221}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1482,6 +1495,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &169086221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169086209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb652034a98b754fb91e51a0c25a93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  healthBar: {fileID: 1646516112}
 --- !u!43 &177314730
 Mesh:
   m_ObjectHideFlags: 0
@@ -17742,6 +17768,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4787734284849576031, guid: dad9bf9d5da62f14196c25aa61c8fba0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 97977997}
+    - targetCorrespondingSourceObject: {fileID: 4787734284849576031, guid: dad9bf9d5da62f14196c25aa61c8fba0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 97977999}
     - targetCorrespondingSourceObject: {fileID: 2601658314583495935, guid: dad9bf9d5da62f14196c25aa61c8fba0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1259486448}
@@ -19956,7 +19985,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.64
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
