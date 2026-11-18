@@ -13,7 +13,7 @@
 
 ## 🎬 Gameplay Preview
 <div align="center">
-  <img width="400" height="250" alt="ShortCircuit_DemoGameplay (2)" src="https://github.com/user-attachments/assets/417de846-ba24-4800-b57c-7c938caf2fdb" />
+  <img width="400" height="250" alt="Recording 2026-11-06 032754" src="https://github.com/user-attachments/assets/15b8c670-3098-4dd4-ba3e-5993eccafa42" />
 </div>
 
 ---
